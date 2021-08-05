@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('layout.master');
+    return view('dashboard');
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/', [userController::class, 'index']);
+    Route::post('/create', [userController::class, 'store']);
+    Route::delete('/delete/{id}', [userController::class, 'delete']);
 });
